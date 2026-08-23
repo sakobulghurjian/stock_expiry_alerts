@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_activity_type_inventory_expiry" model="mail.activity.type">
+        <field name="name">Inventory Expiry Alert</field>
+        <field name="summary">Inventory Expiry Alert</field>
+        <field name="icon">fa-clock-o</field>
+        <field name="decoration_type">warning</field>
+        <field name="res_model">stock.lot</field>
+        <field name="delay_count">0</field>
+    </record>
+</odoo>
+

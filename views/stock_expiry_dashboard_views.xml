@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_expiry_dashboard_line_list_alerts" model="ir.ui.view">
+        <field name="name">stock.expiry.dashboard.line.list.alerts</field>
+        <field name="model">stock.expiry.dashboard.line</field>
+        <field name="inherit_id" ref="stock_expiry_dashboard.view_stock_expiry_dashboard_line_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='days_to_expiry']" position="after">
+                <field name="alert_sent" optional="show"/>
+                <field name="last_alert_date" optional="show"/>
+                <field name="next_alert_threshold" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_expiry_dashboard_line_form_alerts" model="ir.ui.view">
+        <field name="name">stock.expiry.dashboard.line.form.alerts</field>
+        <field name="model">stock.expiry.dashboard.line</field>
+        <field name="inherit_id" ref="stock_expiry_dashboard.view_stock_expiry_dashboard_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='days_to_expiry']" position="after">
+                <field name="alert_sent"/>
+                <field name="last_alert_date"/>
+                <field name="next_alert_threshold"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

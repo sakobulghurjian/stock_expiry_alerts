@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_expiry_alert_settings_form" model="ir.ui.view">
+        <field name="name">stock.expiry.alert.settings.form</field>
+        <field name="model">stock.expiry.alert.settings</field>
+        <field name="arch" type="xml">
+            <form string="Expiry Alert Settings" create="true" edit="true" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Expiry Alert Settings</h1>
+                        <div class="text-muted">
+                            Configure automatic lot and serial expiration notifications for the active company.
+                        </div>
+                    </div>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="expiry_alert_enabled"/>
+                    </group>
+                    <group invisible="not expiry_alert_enabled">
+                        <field name="expiry_alert_days"
+                               placeholder="30, 15, 7, 3, 1"
+                               required="expiry_alert_enabled"/>
+                        <field name="expiry_alert_responsible_user_id"
+                               required="expiry_alert_enabled"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="expiry_alert_send_email"/>
+                        <field name="expiry_alert_notify_expired"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_save" type="object" string="Save" class="btn-primary"/>
+                    <button string="Discard" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_expiry_alert_settings" model="ir.actions.act_window">
+        <field name="name">Expiry Alerts</field>
+        <field name="res_model">stock.expiry.alert.settings</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_stock_expiry_alert_settings_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_stock_expiry_alert_settings"
+              name="Expiry Alerts"
+              parent="stock.menu_stock_config_settings"
+              action="action_stock_expiry_alert_settings"
+              sequence="90"
+              groups="stock.group_stock_manager"/>
+</odoo>

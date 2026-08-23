@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stock_expiry_alert_event_search" model="ir.ui.view">
+        <field name="name">stock.expiry.alert.event.search</field>
+        <field name="model">stock.expiry.alert.event</field>
+        <field name="arch" type="xml">
+            <search string="Expiry Alert History">
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="responsible_user_id"/>
+                <field name="expiration_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="expired" string="Expired" domain="[('threshold_days', '=', -1)]"/>
+                <filter name="advance" string="Before Expiry" domain="[('threshold_days', '&gt;', 0)]"/>
+                <filter name="emailed" string="Email Sent" domain="[('email_sent', '=', True)]"/>
+                <group>
+                    <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter name="group_lot" string="Lot/Serial" context="{'group_by': 'lot_id'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter name="group_alert_month" string="Alert Month" context="{'group_by': 'alert_datetime:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_stock_expiry_alert_event_list" model="ir.ui.view">
+        <field name="name">stock.expiry.alert.event.list</field>
+        <field name="model">stock.expiry.alert.event</field>
+        <field name="arch" type="xml">
+            <list string="Expiry Alert History" create="false" edit="false" delete="false"
+                  decoration-danger="is_expired">
+                <field name="alert_datetime"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="quantity"/>
+                <field name="expiration_date"/>
+                <field name="days_remaining"/>
+                <field name="threshold_days" optional="hide"/>
+                <field name="responsible_user_id"/>
+                <field name="email_sent" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="is_expired" column_invisible="True"/>
+                <button name="action_open_lot" type="object" string="Open Lot" class="btn-link" icon="fa-external-link"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_stock_expiry_alert_event_form" model="ir.ui.view">
+        <field name="name">stock.expiry.alert.event.form</field>
+        <field name="model">stock.expiry.alert.event</field>
+        <field name="arch" type="xml">
+            <form string="Expiry Alert Event" create="false" edit="false" delete="false">
+                <header>
+                    <button name="action_open_lot" type="object" string="Open Lot/Serial" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="lot_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="responsible_user_id"/>
+                        </group>
+                        <group>
+                            <field name="expiration_date"/>
+                            <field name="days_remaining"/>
+                            <field name="threshold_days"/>
+                            <field name="quantity"/>
+                            <field name="alert_datetime"/>
+                            <field name="email_sent"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stock_expiry_alert_event" model="ir.actions.act_window">
+        <field name="name">Expiry Alert History</field>
+        <field name="res_model">stock.expiry.alert.event</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_stock_expiry_alert_event_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">No expiry alerts have been generated yet.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_stock_expiry_alert_event"
+              name="Expiry Alert History"
+              parent="stock.menu_stock_root"
+              action="action_stock_expiry_alert_event"
+              sequence="96"
+              groups="stock.group_stock_user"/>
+</odoo>
+

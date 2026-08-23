@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_stock_expiry_alerts" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.stock.expiry.alerts</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='stock']" position="inside">
+                <block title="Expiry Alerts" name="stock_expiry_alert_settings">
+                    <setting id="stock_expiry_alert_enabled"
+                             string="Enable Expiry Alerts"
+                             help="Create daily activities for stocked lots and serials at configured expiry thresholds."
+                             company_dependent="1">
+                        <field name="expiry_alert_enabled"/>
+                    </setting>
+                    <setting id="stock_expiry_alert_days"
+                             string="Alert Days"
+                             help="Comma-separated exact days before expiry, for example 30, 15, 7, 3, 1."
+                             company_dependent="1"
+                             invisible="not expiry_alert_enabled">
+                        <field name="expiry_alert_days" placeholder="30, 15, 7, 3, 1" required="expiry_alert_enabled"/>
+                    </setting>
+                    <setting id="stock_expiry_alert_responsible"
+                             string="Responsible User"
+                             help="Activities and optional emails are assigned to this internal user."
+                             company_dependent="1"
+                             invisible="not expiry_alert_enabled">
+                        <field name="expiry_alert_responsible_user_id"
+                               required="expiry_alert_enabled"
+                               options="{'no_create': True, 'no_open': True}"/>
+                    </setting>
+                    <setting id="stock_expiry_alert_email"
+                             string="Send Email Notification"
+                             help="Queue an Odoo email in addition to each activity."
+                             company_dependent="1"
+                             invisible="not expiry_alert_enabled">
+                        <field name="expiry_alert_send_email"/>
+                    </setting>
+                    <setting id="stock_expiry_alert_expired"
+                             string="Notify When Product Expires"
+                             help="Create one final notification when a stocked lot reaches or passes its expiration date."
+                             company_dependent="1"
+                             invisible="not expiry_alert_enabled">
+                        <field name="expiry_alert_notify_expired"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

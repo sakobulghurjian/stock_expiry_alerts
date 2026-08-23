@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="mail_template_inventory_expiry_alert" model="mail.template">
+        <field name="name">Inventory Expiry Alert</field>
+        <field name="model_id" ref="model_stock_expiry_alert_event"/>
+        <field name="subject">Inventory Expiry Alert — {{ object.product_id.display_name }} {{ 'has expired' if object.is_expired else 'expires in %s days' % object.days_remaining }}</field>
+        <field name="email_to">{{ object.responsible_user_id.email }}</field>
+        <field name="body_html" type="html">
+            <div>
+                <p>Hello <t t-out="object.responsible_user_id.name"/>,</p>
+                <p>
+                    <strong t-if="object.is_expired">Inventory Expired</strong>
+                    <strong t-else="">Inventory Expiry Alert</strong>
+                </p>
+                <ul>
+                    <li>Product: <t t-out="object.product_id.display_name"/></li>
+                    <li>Lot/Serial: <t t-out="object.lot_id.display_name"/></li>
+                    <li>Available Quantity: <t t-out="object.quantity"/> <t t-out="object.product_id.uom_id.name"/></li>
+                    <li>Expiration Date: <t t-out="format_datetime(object.expiration_date, tz=object.responsible_user_id.tz or 'UTC')"/></li>
+                    <li>Days Remaining: <t t-out="object.days_remaining"/></li>
+                    <li>Company: <t t-out="object.company_id.display_name"/></li>
+                </ul>
+                <p>
+                    <a t-att-href="object.get_base_url() + '/odoo/stock.lot/' + str(object.lot_id.id)">Open Lot/Serial</a>
+                </p>
+            </div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>
