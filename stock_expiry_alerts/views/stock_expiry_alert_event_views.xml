@@ -40,7 +40,7 @@
                 <field name="email_sent" optional="show"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show"/>
                 <field name="is_expired" column_invisible="True"/>
-                <button name="action_open_lot" type="object" string="Open Lot" class="btn-link" icon="fa-external-link"/>
+                <button name="action_open_lot" type="object" string="Open Lot" class="btn-link" icon="open_in_new"/>
             </list>
         </field>
     </record>

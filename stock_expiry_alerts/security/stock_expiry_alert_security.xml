@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <record id="stock_expiry_alert_event_company_rule" model="ir.rule">
-        <field name="name">Inventory expiry events by allowed company</field>
-        <field name="model_id" ref="model_stock_expiry_alert_event"/>
-        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
-    </record>
-</odoo>
-

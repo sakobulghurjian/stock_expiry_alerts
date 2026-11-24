@@ -1,6 +1,6 @@
 # Inventory Expiry Alerts
 
-Inventory Expiry Alerts is a focused Odoo 19 Community addon that creates
+Inventory Expiry Alerts is a focused Odoo 20 Community addon that creates
 activities—and optionally emails—when physically stocked lots or serials reach
 configured expiration thresholds. It extends the free `stock_expiry_dashboard`
 addon without changing its reporting workflow.

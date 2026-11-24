@@ -10,7 +10,6 @@ from psycopg2 import IntegrityError
 
 from odoo import api, fields, models, _
 from odoo.exceptions import AccessError
-from odoo.tools.float_utils import float_compare
 
 
 _logger = logging.getLogger(__name__)
@@ -94,7 +93,7 @@ class StockLot(models.Model):
             lot_label=escape(_("Lot/Serial")),
             lot=escape(lot.display_name),
             quantity_label=escape(_("Available Quantity")),
-            quantity=escape(lot.product_uom_id._compute_quantity(quantity, lot.product_uom_id)),
+            quantity=escape(lot.uom_id._compute_quantity(quantity, lot.uom_id)),
             expiration_label=escape(_("Expiration Date")),
             expiration=escape(fields.Datetime.to_string(expiration)),
             days_label=escape(_("Days Remaining")),
@@ -211,11 +210,7 @@ class StockLot(models.Model):
             quantities = {lot.id: quantity for lot, quantity in quantity_rows}
             for lot in lots:
                 quantity = quantities.get(lot.id, 0.0)
-                if float_compare(
-                    quantity,
-                    0.0,
-                    precision_rounding=lot.product_uom_id.rounding,
-                ) <= 0:
+                if lot.uom_id.compare(quantity, 0.0) <= 0:
                     continue
                 days_remaining = self._expiry_alert_days_remaining(lot, company)
                 if days_remaining <= 0:

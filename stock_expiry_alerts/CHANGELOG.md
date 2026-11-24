@@ -1,5 +1,12 @@
 # Changelog
 
+## 20.0.1.0.0
+
+- Ported to Odoo 20 Community.
+- Convert access lists and the multi-company record rule to Odoo 20 `ir.access`.
+- Follow the Odoo 20 rename of `stock.lot.product_uom_id` to `uom_id` and use the new unit rounding API.
+- Use Odoo 20 Material Symbols icons on alert buttons.
+
 ## 19.0.1.0.0
 
 - Add company-specific expiry alert settings and category threshold overrides.

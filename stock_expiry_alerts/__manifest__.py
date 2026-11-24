@@ -4,7 +4,7 @@
 {
     "name": "Inventory Expiry Alerts",
     "summary": "Notify responsible users before stocked lots and serials expire",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "category": "Inventory/Inventory",
     "license": "LGPL-3",
     "author": "Yerevan Digital Co",
@@ -18,8 +18,6 @@
         "mail",
     ],
     "data": [
-        "security/stock_expiry_alert_security.xml",
-        "security/ir.model.access.csv",
         "data/mail_activity_type_data.xml",
         "data/mail_template_data.xml",
         "data/ir_cron_data.xml",
@@ -28,6 +26,7 @@
         "views/product_category_views.xml",
         "views/stock_expiry_alert_event_views.xml",
         "views/stock_expiry_dashboard_views.xml",
+        "security/ir.access.csv",
     ],
     "images": [
         "static/description/banner.png",

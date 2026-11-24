@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_stock_expiry_alert_event_user,stock.expiry.alert.event user,stock.expiry.alert.event,stock.group_stock_user,r,
+stock_expiry_alert_event_company_rule,Inventory expiry events by allowed company,stock.expiry.alert.event,,crud,"[('company_id', 'in', company_ids)]"
+access_stock_expiry_alert_settings_manager,stock.expiry.alert.settings manager,stock.expiry.alert.settings,stock.group_stock_manager,crud,
